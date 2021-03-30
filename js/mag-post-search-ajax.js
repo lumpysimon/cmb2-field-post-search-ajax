@@ -16,10 +16,10 @@
 				showNoSuggestionNotice: true,
 				transformResult: function(r) {
 					var suggestions = $.parseJSON(r);
-					if($('#'+fid+'_results li').length){
+					if($('#results_'+fid+' li').length){
 						var selected_vals 	= Array();
 						var d 				= 0;
-						$('#'+fid+'_results input').each(function(index, element) {
+						$('#results_'+fid+' input').each(function(index, element) {
                             selected_vals.push( $(this).val() );
                         });
 						$(suggestions).each(function(ri, re){
@@ -48,27 +48,30 @@
 				},
 				onSelect: function (suggestion) {
 					$(this).devbridgeAutocomplete('clearCache');
-					var lid 	 = $(this).attr('id') + '_results';
-					var limit 	 = $(this).attr('data-limit');
+					var lid      = 'results_' + $(this).attr('id');
+					var limit    = $(this).attr('data-limit');
 					var sortable = $(this).attr('data-sortable');
+					var rid      = $(document.getElementById(lid));
+
 					if( 1 != limit ){
 						var handle = (sortable == 1) ? '<span class="hndl"></span>' : '';
-						$('#'+lid).append('<li>'+handle+'<input type="hidden" name="'+lid+'[]" value="'+suggestion.data+'"><a href="'+suggestion.guid+'" target="_blank" class="edit-link">'+suggestion.value+'</a><a class="remover"><span class="dashicons dashicons-no"></span><span class="dashicons dashicons-dismiss"></span></a></li>');
+						rid.append('<li>'+handle+'<input type="hidden" name="'+lid+'[]" value="'+suggestion.data+'"><a href="'+suggestion.guid+'" target="_blank" class="edit-link">'+suggestion.value+'</a><a class="remover"><span class="dashicons dashicons-no"></span><span class="dashicons dashicons-dismiss"></span></a></li>');
 						$(this).val('');
-						if( limit != -1 && limit <= $('#' + lid + ' li').length ){
+						if( limit != -1 && limit <= rid.find('li').length ){
 							$(this).prop( 'disabled', true );
 						} else {
 							$(this).focus();
 						}
 					}
 					else{
-						$('input[name='+lid+']').val(suggestion.data);
+						console.log('limit is 1, trying to update: '+lid);
+						$('input[name="'+lid+'"]').val(suggestion.data);
 					}
 				}
 			});
 
 			if($(this).attr('data-sortable') == 1){
-				$('#'+fid+'_results').sortable({
+				$('#results_'+fid).sortable({
 					handle				 : '.hndl',
 					placeholder			 : 'ui-state-highlight',
 					forcePlaceholderSize : true
@@ -78,13 +81,13 @@
 			if($(this).attr('data-limit') == 1){
 				$(this).on('blur', function(){
 					if($(this).val() === ''){
-						var lid = $(this).attr('id') + '_results';
+						var lid = 'results_' + $(this).attr('id');
 						$('input[name='+lid+']').val('');
 					}
 				});
 			} else {
 				if ( -1 != $(this).attr('data-limit') ) {
-					var length = $('#' + $(this).attr('id') + '_results' + ' li').length;
+					var length = $('#results_' + $(this).attr('id') + ' li').length;
 					if ( $(this).attr('data-limit') <= length ) {
 						$(this).prop('disabled',true);
 					}
@@ -96,7 +99,7 @@
 
 	$('.cmb-post-search-ajax-results').on( 'click', 'a.remover', function(){
 		$(this).parent('li').fadeOut( 400, function(){
-			var iid = $(this).parents('ul').attr('id').replace('_results', '');
+			var iid = $(this).parents('ul').attr('id').replace('results_', '');
 			$(this).remove();
 			$('#' + iid).prop( 'disabled', false );
 			$('#' + iid).devbridgeAutocomplete('clearCache');

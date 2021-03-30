@@ -42,6 +42,7 @@ if( ! class_exists( 'MAG_CMB2_Field_Post_Search_Ajax' ) ) {
 		public function render( $field, $value, $object_id, $object_type, $field_type ) {
 			$this->setup_admin_scripts();
 			$field_name = $field->_name();
+			$field_id = $field->id();
 
 			if( empty( $field->args( 'limit' ) ) or 1 == $field->args( 'limit' ) ){
 				if(is_array($value)){ $value = $value[0]; }
@@ -52,14 +53,15 @@ if( ! class_exists( 'MAG_CMB2_Field_Post_Search_Ajax' ) ) {
 					$field_value = ($value ? get_the_title($value) : '');
 				}
 				echo $field_type->input( array(
-					'type' 	=> 'hidden',
-					'name' 	=> $field_name . '_results',
+					'type'  => 'hidden',
+					'name'  => 'results_' . $field_name,
+					'id'    => 'results_' . $field_id,
 					'value' => $value,
-					'desc'	=> false
+					'desc'  => false
 				) );
 			}
 			else{
-				echo '<ul class="cmb-post-search-ajax-results" id="' . $field_name . '_results">';
+				echo '<ul class="cmb-post-search-ajax-results" id="results_' . $field_name . '">';
 				if( isset($value) && !empty($value) ){
 					if( !is_array($value) ){ $value = array($value); }
 					foreach($value as $val){
@@ -73,7 +75,7 @@ if( ! class_exists( 'MAG_CMB2_Field_Post_Search_Ajax' ) ) {
 							$guid 	= get_edit_post_link($val);
 							$title	= get_the_title($val);
 						}
-						echo '<li>'.$handle.'<input type="hidden" name="'.$field_name.'_results[]" value="'.$val.'"><a href="'.$guid.'" target="_blank" class="edit-link">'.$title.'</a><a class="remover"><span class="dashicons dashicons-no"></span><span class="dashicons dashicons-dismiss"></span></a></li>';
+						echo '<li>'.$handle.'<input type="hidden" name="results_'.$field_name.'[]" value="'.$val.'"><a href="'.$guid.'" target="_blank" class="edit-link">'.$title.'</a><a class="remover"><span class="dashicons dashicons-no"></span><span class="dashicons dashicons-dismiss"></span></a></li>';
 					}
 				}
 				echo '</ul>';
@@ -100,12 +102,13 @@ if( ! class_exists( 'MAG_CMB2_Field_Post_Search_Ajax' ) ) {
 		}
 
 		/**
-		 * Optionally save the latitude/longitude values into two custom fields
+		 * Get the input
 		 */
 		public function sanitize( $override_value, $value, $object_id, $field_args ) {
 			$fid = $field_args['id'];
-			if( !empty( $field_args['render_row_cb'][0]->data_to_save[$fid.'_results'] ) ){
-				$value = $field_args['render_row_cb'][0]->data_to_save[$fid.'_results'];
+			$data = $field_args['render_row_cb'][0]->data_to_save['results_'.$fid];
+			if ( ! empty( $data ) ) {
+				$value = $data;
 			}
 			else{
 				$value = false;
