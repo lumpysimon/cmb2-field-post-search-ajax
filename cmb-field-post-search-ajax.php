@@ -208,13 +208,13 @@ if( ! class_exists( 'MAG_CMB2_Field_Post_Search_Ajax' ) ) {
 			}
 		}
 
-	}
+		function add_query_var( $vars ) {
 
-	function add_query_var( $vars ) {
+			$vars[] = 'cmb_post_ajax_search';
 
-		$vars[] = 'cmb_post_ajax_search';
+			return $vars;
 
-		return $vars;
+		}
 
 	}
 
