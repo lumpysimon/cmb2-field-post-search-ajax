@@ -200,6 +200,7 @@ if( ! class_exists( 'MAG_CMB2_Field_Post_Search_Ajax' ) ) {
 					endif;
 				}
 				wp_reset_postdata();
+				$datas = apply_filters( 'mag_cmb_post_search_ajax_results', $datas, $args );
 				die( json_encode( $datas ) );
 			}
 		}
