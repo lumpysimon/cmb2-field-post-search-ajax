@@ -14,6 +14,8 @@
 				type: 'POST',
 				triggerSelectOnValidInput: false,
 				showNoSuggestionNotice: true,
+				minChars: 4,
+				maxHeight: 500,
 				transformResult: function(r) {
 					var suggestions = $.parseJSON(r);
 					if($('#results_'+fid+' li').length){
