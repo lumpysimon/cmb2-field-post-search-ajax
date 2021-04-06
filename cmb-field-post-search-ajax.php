@@ -170,6 +170,7 @@ if( ! class_exists( 'MAG_CMB2_Field_Post_Search_Ajax' ) ) {
 			else {
 				$args 		= json_decode(stripslashes(htmlspecialchars_decode($_POST['query_args'])), true);
 				$args['s'] 	= $_POST['query'];
+				$args['cmb_post_ajax_search'] = true;
 				$datas 		= array();
 				if( $_POST['object'] == 'user' ){
 					$args['search'] = '*'.esc_attr($_POST['query']).'*';
