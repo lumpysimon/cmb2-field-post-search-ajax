@@ -195,7 +195,7 @@ if( ! class_exists( 'MAG_CMB2_Field_Post_Search_Ajax' ) ) {
 								'value' => get_the_title(),
 								'data'	=> get_the_ID(),
 								'guid'	=> get_edit_post_link()
-							) );
+							), $args );
 						endwhile;
 					endif;
 				}
