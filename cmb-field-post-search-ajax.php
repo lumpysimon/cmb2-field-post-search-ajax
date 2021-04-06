@@ -34,6 +34,8 @@ if( ! class_exists( 'MAG_CMB2_Field_Post_Search_Ajax' ) ) {
 			add_action( 'cmb2_render_post_search_ajax', array( $this, 'render' ), 10, 5 );
 			add_action( 'cmb2_sanitize_post_search_ajax', array( $this, 'sanitize' ), 10, 4 );
 			add_action( 'wp_ajax_cmb_post_search_ajax_get_results', array( $this, 'cmb_post_search_ajax_get_results' ) );
+			add_filter( 'query_vars', [ $this, 'add_query_var' ] );
+
 		}
 
 		/**
@@ -208,5 +210,14 @@ if( ! class_exists( 'MAG_CMB2_Field_Post_Search_Ajax' ) ) {
 
 	}
 
+	function add_query_var( $vars ) {
+
+		$vars[] = 'cmb_post_ajax_search';
+
+		return $vars;
+
+	}
+
 }
+
 $mag_cmb2_field_post_search_ajax = new MAG_CMB2_Field_Post_Search_Ajax();
