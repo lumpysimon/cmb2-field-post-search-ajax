@@ -1,4 +1,4 @@
-.autocomplete-suggestions { border: 1px solid #DDD; background: #FFF; overflow: auto; box-sizing: border-box; }
+.autocomplete-suggestions { border: 1px solid #DDD; background: #FFF; overflow: auto; box-sizing: border-box; overflow-x: hidden; }
 .autocomplete-suggestion { padding: 5px 5px; white-space: nowrap; overflow: hidden; cursor: pointer; }
 .autocomplete-no-suggestion { padding: 5px 5px; white-space: nowrap; overflow: hidden; }
 .autocomplete-selected { background: #F0F0F0; }
@@ -6,7 +6,7 @@
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
 
-input.cmb-post-search-ajax { width: 30em; }
+input.cmb-post-search-ajax { max-width: 100%; width: 50em; }
 .cmb-post-search-ajax-results { width: 30em; padding: 0 1px; box-sizing: border-box; margin-bottom: 5px; }
 .cmb-post-search-ajax-results li { margin: 0; border-bottom: 1px solid #f4f4f4; padding: 7px 5px; background: #fff; }
 .cmb-post-search-ajax-results li:last-child { border-bottom: none; }
@@ -22,4 +22,3 @@ input.cmb-post-search-ajax { width: 30em; }
 .cmb-post-search-ajax-results li a.remover:hover span.dashicons-no { display: none; }
 .cmb-post-search-ajax-results .ui-state-highlight { background: #f4f4f4; }
 .cmb-post-search-ajax-spinner { position: absolute; margin: 9px 0 0 -25px; width: 15px; display:none; }
-
