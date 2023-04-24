@@ -3,7 +3,7 @@ CMB2 custom field "post_search_ajax"
 
 Custom field for [CMB2](https://github.com/WebDevStudios/CMB2) to attach posts to each others.
 
-Same approach than [CMB2 Attached Posts Field](https://github.com/WebDevStudios/cmb2-attached-posts/) with Ajax request, multiple/single option, and different UI.
+Same approach as [CMB2 Attached Posts Field](https://github.com/WebDevStudios/cmb2-attached-posts/) with Ajax request, multiple/single option, and different UI.
 
 ## Installation
 
@@ -13,17 +13,17 @@ You can install this field type as you would a WordPress plugin:
 - Place the plugin folder in your /wp-content/plugins/ directory
 - Activate the plugin in the Plugin dashboard
 
-Composer Intallation:
+Composer Installation:
 
 ```
-composer require alexis-magina/cmb2-field-post-search-ajax:dev-master
+composer require lumpysimon/cmb2-field-post-search-ajax:dev-main
 ```
 
 ## Usage - Admin
 
-Follow the example in [`example-field-setup.php`](https://github.com/alexis-magina/cmb2-field-post-search-ajax/blob/master/example-field-setup.php) for a demonstration.
+Follow the example in [`example-field-setup.php`](https://github.com/lumpysimon/cmb2-field-post-search-ajax/blob/master/example-field-setup.php) for a demonstration.
 
-Options : 
+Options :
 - limit (int, default = 1 : single selection) : limit the number of posts that can be selected
 - sortable (bool, default = false) : Allow selected posts to be sort
 - query_args (array) : setup the ajax search query : pass a wp_query args array.
@@ -44,14 +44,14 @@ add_filter( 'mag_cmb_post_search_ajax_result', 'example_callback' );
 
 ## Usage - FrontEnd
 
-You can retrieve the meta data using get_post_meta( get_the_ID(), 'your_field_id', true ); 
+You can retrieve the meta data using get_post_meta( get_the_ID(), 'your_field_id', true );
 
 If field limit > 1, this will return an array of attached post IDs.
 If field limit == 1, this will return only the single attached post ID.
 
 ## Screenshot
 
-![example](https://github.com/alexis-magina/cmb2-field-post-search-ajax/blob/master/example.gif)
+![example](https://github.com/lumpysimon/cmb2-field-post-search-ajax/blob/master/example.gif)
 
 ## Changelog
 
@@ -80,3 +80,10 @@ If field limit == 1, this will return only the single attached post ID.
 
 ### 1.1.5
 * Fixed issue #17 : Undefined index if the field is empty
+
+### 1.1.6
+* Fix composer install
+* Fix limit bugs
+* Add query vars to cmb_post_ajax_search()
+* Add args to mag_cmb_post_search_ajax_result filter()
+* Update Ajax Autocomplete to 1.4.11
